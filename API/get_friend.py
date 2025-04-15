@@ -63,7 +63,6 @@ with vrchatapi.ApiClient(configuration) as api_client:
     # オンラインとオフラインのフレンドを取得
     online_friends = fetch_all_friends(offline_status=False)
     offline_friends = fetch_all_friends(offline_status=True)
-
     # すべてのフレンドを結合
     all_friends = online_friends + offline_friends
 
