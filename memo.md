@@ -21,3 +21,6 @@ DiscordへのWebhook通知
 
 Windows通知の実装  
 [WindowsのPythonでデスクトップ通知(トースト)作ってみた【WinRT】](https://qiita.com/relu/items/51e89f2346b5fd7ed49d)
+
+Memo GET FRIEND INFO
+https://github.com/vrchatapi/vrchatapi-python/blob/main/docs/FriendsApi.md#get_friends
