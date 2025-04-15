@@ -1,11 +1,3 @@
-# VRCFT
-**VRCFT(VRChatFriendTracker)** - VRChatのAPIを叩き、設定したフレンドのログを監視、通知するアプリ。Discordの特定のチャンネルへWebhookでの通知、Windowsへの通知、SteamVRのオーバーレイを予定しています。
-
-## 使用技術
-1. Python  
-2. C# - SteamVR状にオーバーレイを表示させるのに使用
-3. Unity - SteamVR状にオーバーレイを表示させるのに使用
-
 ## 参考になりそうな記事
 
 SteamVRオーバーレイの実装  
