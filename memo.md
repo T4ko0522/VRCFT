@@ -1,5 +1,7 @@
 ## 参考になりそうな記事
 
+Node.js v20.19.0を使え！！！
+
 SteamVRオーバーレイの実装  
 [UnityでつくるSteamVRオーバーレイアプリケーション](https://zenn.dev/kurohuku/books/a082c5728cc1f6/viewer/introduction)  
 [VRCX/Dotnet/Overlay](https://github.com/vrcx-team/VRCX/tree/59d3ead781c0aa548d4bedd7343b4a204dfd0eb5/Dotnet/Overlay)
