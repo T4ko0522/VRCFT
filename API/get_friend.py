@@ -20,7 +20,7 @@ def make_cookie(name, value, expires):
 configuration = vrchatapi.Configuration()
 
 with vrchatapi.ApiClient(configuration) as api_client:
-    api_client.user_agent = f"Mozilla/5.0 {username}"
+    api_client.user_agent = f"VRCFT/1.0 {username}"
     
     # Cookieの読み込みと設定
     if os.path.exists(cookie_save_path):

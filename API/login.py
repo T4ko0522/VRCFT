@@ -46,7 +46,7 @@ configuration = vrchatapi.Configuration(
 )
 
 with vrchatapi.ApiClient(configuration) as api_client:
-    api_client.user_agent = f"Mozilla/5.0 {username}"
+    api_client.user_agent = f"VRCFT/1.0 {username}"
     auth_api = authentication_api.AuthenticationApi(api_client)
 
     # Cookieファイルが存在すれば読み込み
