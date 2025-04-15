@@ -45,7 +45,8 @@ with vrchatapi.ApiClient(configuration) as api_client:
     def fetch_all_friends(offline_status):
         all_friends = []
         offset = 0
-        limit = 100  # 最大100件まで取得可能
+        limit = 100
+        page = 1
         while True:
             try:
                 friends = friends_api_instance.get_friends(offset=offset, n=limit, offline=offline_status)
@@ -61,8 +62,8 @@ with vrchatapi.ApiClient(configuration) as api_client:
         return all_friends
 
     # オンラインとオフラインのフレンドを取得
-    online_friends = fetch_all_friends(offline_status=False)
-    offline_friends = fetch_all_friends(offline_status=True)
+    online_friends = fetch_all_friends(offline_status="false")
+    offline_friends = fetch_all_friends(offline_status="true")
     # すべてのフレンドを結合
     all_friends = online_friends + offline_friends
 
