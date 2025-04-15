@@ -3,40 +3,94 @@ from vrchatapi.api import authentication_api
 from vrchatapi.exceptions import UnauthorizedException
 from vrchatapi.models.two_factor_auth_code import TwoFactorAuthCode
 from vrchatapi.models.two_factor_email_code import TwoFactorEmailCode
-from vrchatapi.api import users_api
 
 from dotenv import load_dotenv
-load_dotenv()
-
 import os
+import pickle
+from http.cookiejar import Cookie
+
+load_dotenv()
 
 username = os.getenv("EMAIL")
 password = os.getenv("PASSWORD")
 user_id = os.getenv("UUID")
+cookie_save_path = "vrchat_cookie.pkl"
 
+# Cookieを作成する関数
+def make_cookie(name, value):
+    return Cookie(
+        version=0,
+        name=name,
+        value=value,
+        port=None,
+        port_specified=False,
+        domain="api.vrchat.cloud",
+        domain_specified=True,
+        domain_initial_dot=False,
+        path="/",
+        path_specified=True,
+        secure=False,
+        expires=None,
+        discard=True,
+        comment=None,
+        comment_url=None,
+        rest={},
+        rfc2109=False
+    )
+
+# login設定を作成
 configuration = vrchatapi.Configuration(
     username = username,
     password = password,
 )
-api_client = vrchatapi.ApiClient(configuration)
 
-api_client.user_agent = f"Mozilla/5.0 {username}"
-auth_api = authentication_api.AuthenticationApi(api_client)
-try:
-    current_user = auth_api.get_current_user()
-# 初回は2FAが有効になっているため、2FAのコードを入力する
-except UnauthorizedException as e:
-    if e.status == 200:
-        auth_api.verify2_fa_email_code(two_factor_email_code=TwoFactorEmailCode(input("Email 2FA Code: ")))
-    elif "2 Factor Authentication" in e.reason:
-        auth_api.verify2_fa(two_factor_auth_code=TwoFactorAuthCode(input("2FA Code: ")))
-    else:
-        print("Exception when calling API: %s\n", e)
-except vrchatapi.ApiException as e:
-    print("Exception when calling API: %s\n", e)
+with vrchatapi.ApiClient(configuration) as api_client:
+    api_client.user_agent = f"Mozilla/5.0 {username}"
+    
+    # Cookieファイルが存在すれば読み込み
+    if os.path.exists(cookie_save_path):
+        with open(cookie_save_path, "rb") as f:
+            cookie_data = pickle.load(f)
+            for name, value in cookie_data.items():
+                api_client.rest_client.cookie_jar.set_cookie(make_cookie(name, value))
+    
+    auth_api = authentication_api.AuthenticationApi(api_client)
 
-# users_api = users_api.UsersApi(api_client)
-# user = users_api.get_user(user_id=user_id)
+    try:
+        # ログインしていない場合get_current_userを呼び出してでログイン
+        current_user = auth_api.get_current_user()
+    except UnauthorizedException as e:
+        if e.status == 200:
+            try:
+                if "Email 2 Factor Authentication" in e.reason:
+                    # 二段階認証メール
+                    code = input("Email 2FA Code: ")
+                    auth_api.verify2_fa_email_code(two_factor_email_code=TwoFactorEmailCode(code))
+                elif "2 Factor Authentication" in e.reason:
+                    # 二段階認証コード
+                    code = input("2FA Code: ")
+                    auth_api.verify2_fa(two_factor_auth_code=TwoFactorAuthCode(code))
+                current_user = auth_api.get_current_user()
+            except vrchatapi.ApiException as auth_error:
+                if auth_error.status == 401 or auth_error.status == 400:
+                    print("⚠️ 2段階認証コードが無効です。正しいコードを入力してください。")
+                else:
+                    print("APIエラーが発生しました:", auth_error)
+                exit(1)
+        else:
+            print("Exception when calling API: %s\n" % e)
+            exit(1)
+    except vrchatapi.ApiException as e:
+        print("Exception when calling API: %s\n" % e)
+        exit(1)
 
-# print(user)
+    # 認証成功後、cookieを保存
+    cookies = api_client.rest_client.cookie_jar
+    cookie_data = {}
+    for c in cookies:
+        if c.name in ["auth", "twoFactorAuth"]:
+            cookie_data[c.name] = c.value
+    with open(cookie_save_path, "wb") as f:
+        pickle.dump(cookie_data, f)
 
+    print("Logged in as:", current_user.display_name)
