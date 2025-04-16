@@ -1,9 +1,8 @@
 {
   "name": "electron",
-  "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron ."
   },
@@ -11,9 +10,8 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.8.1",
-  "devDependencies": {
-    "concurrently": "^9.1.2",
+  "dependencies": {
     "cross-env": "^7.0.3",
-    "electron": "23.0.0"
+    "electron": "^35.1.5"
   }
 }
