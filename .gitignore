@@ -1,6 +1,30 @@
 .vscode/
-.env
-vrchat_cookie.pkl
+
+# dependencies
 node_modules/
-package-lock.json
 pnpm-lock.yaml
+package-lock.json
+
+# next.js
+.next/
+out/
+
+# production
+build
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+vrchat_cookie.pkl
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
