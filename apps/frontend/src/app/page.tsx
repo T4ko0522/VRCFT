@@ -16,7 +16,7 @@ export default function Home() {
       // 未ログイン状態の場合
       if (isFirstVisit) {
         // 初回アクセスの場合はインデックスページへ
-        router.push("/index")
+        router.push("/front")
       } else {
         // 初回ではない場合はログインページへ
         router.push("/login")
@@ -41,8 +41,8 @@ export default function Home() {
         {/* ソーシャルリンクを追加 */}
         <div className="absolute bottom-8 left-0 right-0 flex justify-center">
           <SocialLinks
-            githubUrl="https://github.com/t4ko0522/vrcft"
-            twitterUrl="https://twitter.com/tako_0522"
+            githubUrl="https://github.com/T4ko0522"
+            twitterUrl="https://x.com/Tako_0522"
           />
         </div>
       </main>

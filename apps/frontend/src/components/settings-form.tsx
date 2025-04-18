@@ -46,8 +46,8 @@ export default function SettingsForm() {
   }
 
   // GitHubとTwitterのURL
-  const githubUrl="https://github.com/t4ko0522/vrcft"
-  const twitterUrl="https://twitter.com/tako_0522"
+  const githubUrl="https://github.com/T4ko0522"
+  const twitterUrl="https://x.com/Tako_0522"
 
   return (
     <div className="space-y-6">

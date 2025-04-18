@@ -69,8 +69,8 @@ export default function IndexPage() {
         {/* ソーシャルリンクを画面下部に固定するのではなく、コンテンツの下に配置 */}
         <div className="mt-12">
           <SocialLinks
-            githubUrl="https://github.com/t4ko0522/vrcft"
-            twitterUrl="https://twitter.com/tako_0522"
+            githubUrl="https://github.com/T4ko0522"
+            twitterUrl="https://x.com/Tako_0522"
           />
         </div>
       </motion.div>
