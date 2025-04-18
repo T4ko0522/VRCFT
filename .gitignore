@@ -10,7 +10,8 @@ package-lock.json
 out/
 
 # production
-build
+/build
+/dist
 
 # debug
 npm-debug.log*
