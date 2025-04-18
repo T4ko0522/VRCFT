@@ -17,7 +17,7 @@ export default function IndexPage() {
   useEffect(() => {
     // ログイン済みで初回アクセスではない場合、ルートパスにリダイレクト
     if (isAuthenticated && !isPendingVerification && !isFirstVisit) {
-      router.push("/")
+      // router.push("/")
     } else if (isPendingVerification) {
       // 認証待ち状態の場合は認証ページへ
       router.push("/verify")
@@ -39,9 +39,9 @@ export default function IndexPage() {
   }
 
   // ログイン済みで初回アクセスではない場合は何も表示しない
-  if (isAuthenticated && !isFirstVisit) {
-    return null
-  }
+  // if (isAuthenticated && !isFirstVisit) {
+  //   return null
+  // }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 relative overflow-hidden">
