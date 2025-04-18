@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { Search, Filter, RefreshCw, User, MapPin, Clock, Activity, Shirt } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,12 +11,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { mockFriends } from "@/lib/mock-data"
 import { type LogEntry, type LogType, generateLogEntries } from "@/lib/mock-logs"
 import { format } from "date-fns"
 import { ja } from "date-fns/locale"
-import Image from "next/image"
 
 interface SearchLogsViewerProps {
   monitoredFriendIds?: string[]
@@ -27,7 +25,7 @@ export default function SearchLogsViewer({ monitoredFriendIds }: SearchLogsViewe
   const [logs, setLogs] = useState<LogEntry[]>([])
   const [filteredLogs, setFilteredLogs] = useState<LogEntry[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<string>("search")
+  const [activeTab, setActiveTab] = useState<string>("logs")
 
   // フィルター状態
   const [selectedLogTypes, setSelectedLogTypes] = useState<LogType[]>([
@@ -58,39 +56,8 @@ export default function SearchLogsViewer({ monitoredFriendIds }: SearchLogsViewe
     setIsLoading(false)
   }, [monitoredFriendIds])
 
-  // 検索結果のフレンド
-  const searchResults = useMemo(() => {
-    if (!searchQuery.trim()) return []
-
-    return mockFriends.filter((friend) => {
-      // 基本的な名前検索
-      const matchesName = friend.name.toLowerCase().includes(searchQuery.toLowerCase())
-
-      // ステータスフィルター
-      const matchesStatus = statusFilter.length === 0 || statusFilter.includes(friend.status)
-
-      // オンライン/オフラインフィルター
-      const matchesOnline =
-        onlineFilter === null ||
-        (onlineFilter === true && friend.status !== "offline") ||
-        (onlineFilter === false && friend.status === "offline")
-
-      // 現在地フィルター
-      const matchesLocation =
-        !locationFilter || (friend.location && friend.location.toLowerCase().includes(locationFilter.toLowerCase()))
-
-      // アバターフィルター
-      const matchesAvatar =
-        !avatarFilter || (friend.avatarName && friend.avatarName.toLowerCase().includes(avatarFilter.toLowerCase()))
-
-      return matchesName && matchesStatus && matchesOnline && matchesLocation && matchesAvatar
-    })
-  }, [searchQuery, statusFilter, onlineFilter, locationFilter, avatarFilter])
-
   // ログフィルタリングを適用
   useEffect(() => {
-    if (activeTab !== "logs") return
-
     let filtered = [...logs]
 
     // 検索クエリでフィルタリング
@@ -194,17 +161,7 @@ export default function SearchLogsViewer({ monitoredFriendIds }: SearchLogsViewe
     }
 
     setFilteredLogs(filtered)
-  }, [
-    logs,
-    searchQuery,
-    selectedLogTypes,
-    timeRange,
-    statusFilter,
-    onlineFilter,
-    locationFilter,
-    avatarFilter,
-    activeTab,
-  ])
+  }, [logs, searchQuery, selectedLogTypes, timeRange, statusFilter, onlineFilter, locationFilter, avatarFilter])
 
   // ログをリフレッシュ
   const refreshLogs = () => {
@@ -338,7 +295,7 @@ export default function SearchLogsViewer({ monitoredFriendIds }: SearchLogsViewe
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             type="text"
-            placeholder={activeTab === "search" ? "フレンドを検索..." : "ログを検索..."}
+            placeholder="ログを検索..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-9"
@@ -596,106 +553,42 @@ export default function SearchLogsViewer({ monitoredFriendIds }: SearchLogsViewe
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="search">検索</TabsTrigger>
-          <TabsTrigger value="logs">ログ</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="search" className="mt-4">
-          <div className="space-y-2">
-            {searchQuery.trim() === "" ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">
-                  検索キーワードを入力してください
-                </CardContent>
-              </Card>
-            ) : searchResults.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">検索結果が見つかりません</CardContent>
-              </Card>
-            ) : (
-              searchResults.map((friend) => (
-                <Card key={friend.id} className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <Image
-                          src={friend.avatarUrl || "/placeholder.svg"}
-                          alt={friend.name}
-                          width={48}
-                          height={48}
-                          className="rounded-full"
-                        />
-                        <span
-                          className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-background ${getStatusColor(
-                            friend.status,
-                          )}`}
-                        />
-                      </div>
-                      <div className="flex-grow">
-                        <div className="font-medium">{friend.name}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {getStatusText(friend.status, friend.game, friend.lastSeen)}
-                        </div>
-                        {friend.location && (
-                          <div className="text-sm flex items-center gap-1 mt-1">
-                            <MapPin className="h-3 w-3 text-muted-foreground" />
-                            <span>{friend.location}</span>
-                          </div>
-                        )}
-                        {friend.avatarName && (
-                          <div className="text-sm flex items-center gap-1 mt-1">
-                            <Shirt className="h-3 w-3 text-muted-foreground" />
-                            <span>{friend.avatarName}</span>
-                          </div>
-                        )}
-                      </div>
+      <div className="w-full">
+        <div className="space-y-2 mt-4">
+          {isLoading ? (
+            <Card>
+              <CardContent className="p-8 flex justify-center">
+                <div className="flex items-center gap-2">
+                  <RefreshCw className="h-5 w-5 animate-spin" />
+                  <span>ログを読み込み中...</span>
+                </div>
+              </CardContent>
+            </Card>
+          ) : filteredLogs.length === 0 ? (
+            <Card>
+              <CardContent className="p-8 text-center text-muted-foreground">ログが見つかりません</CardContent>
+            </Card>
+          ) : (
+            filteredLogs.map((log) => (
+              <Card key={log.id} className="overflow-hidden">
+                <CardContent className="p-4">
+                  <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground whitespace-nowrap">
+                        {format(log.timestamp, "yyyy/MM/dd HH:mm", { locale: ja })}
+                      </span>
+                      {getLogTypeBadge(log.type)}
                     </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="logs" className="mt-4">
-          <div className="space-y-2">
-            {isLoading ? (
-              <Card>
-                <CardContent className="p-8 flex justify-center">
-                  <div className="flex items-center gap-2">
-                    <RefreshCw className="h-5 w-5 animate-spin" />
-                    <span>ログを読み込み中...</span>
+                    <div className="flex-grow">
+                      <p>{log.details.message}</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
-            ) : filteredLogs.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">ログが見つかりません</CardContent>
-              </Card>
-            ) : (
-              filteredLogs.map((log) => (
-                <Card key={log.id} className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground whitespace-nowrap">
-                          {format(log.timestamp, "yyyy/MM/dd HH:mm", { locale: ja })}
-                        </span>
-                        {getLogTypeBadge(log.type)}
-                      </div>
-                      <div className="flex-grow">
-                        <p>{log.details.message}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
-        </TabsContent>
-      </Tabs>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   )
 }
