@@ -27,6 +27,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import ExternalLink from "@/components/ui/external-link"
 
 interface UserProfileDetailProps {
   user: Friend
@@ -337,15 +338,13 @@ export default function UserProfileDetail({ user, onClose }: UserProfileDetailPr
 
                   {/* ソーシャルリンク */}
                   <div className="mt-4">
-                    <a
+                    <ExternalLink
                       href={`https://twitter.com/${user.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
                     >
                       <Twitter className="h-4 w-4" />
                       <span>@{user.name}</span>
-                    </a>
+                    </ExternalLink>
                   </div>
                 </CardContent>
               </Card>

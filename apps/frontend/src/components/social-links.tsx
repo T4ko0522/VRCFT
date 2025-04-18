@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Github, Twitter } from "lucide-react"
 import { cn } from "@/lib/utils"
+import ExternalLink from "./external-link"
 
 interface SocialLinksProps {
   className?: string
@@ -42,30 +43,27 @@ export default function SocialLinks({ className, githubUrl, twitterUrl }: Social
       initial="hidden"
       animate="visible"
     >
-      <motion.a
-        href={githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-muted-foreground hover:text-foreground transition-colors"
-        variants={item}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Github className="h-6 w-6" />
-        <span className="sr-only">GitHub</span>
-      </motion.a>
-      <motion.a
-        href={twitterUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-muted-foreground hover:text-foreground transition-colors"
-        variants={item}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <Twitter className="h-6 w-6" />
-        <span className="sr-only">Twitter</span>
-      </motion.a>
+      <motion.div variants={item} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+        <ExternalLink
+          href={githubUrl}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+          showIcon={false}
+        >
+          <Github className="h-6 w-6" />
+          <span className="sr-only">GitHub</span>
+        </ExternalLink>
+      </motion.div>
+
+      <motion.div variants={item} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+        <ExternalLink
+          href={twitterUrl}
+          className="text-muted-foreground hover:text-foreground transition-colors"
+          showIcon={false}
+        >
+          <Twitter className="h-6 w-6" />
+          <span className="sr-only">Twitter</span>
+        </ExternalLink>
+      </motion.div>
     </motion.div>
   )
 }

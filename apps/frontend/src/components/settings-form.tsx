@@ -12,6 +12,7 @@ import { LogOut, Moon, Sun, Palette, Github, Twitter } from "lucide-react"
 import { useTheme } from "@/hooks/use-theme"
 import { ThemeSelector } from "./theme-selector"
 import SocialLinks from "./social-links"
+import ExternalLink from "@/components/ui/external-link"
 
 export default function SettingsForm() {
   const [notifications, setNotifications] = useState(true)
@@ -46,8 +47,8 @@ export default function SettingsForm() {
   }
 
   // GitHubとTwitterのURL
-  const githubUrl="https://github.com/T4ko0522"
-  const twitterUrl="https://x.com/Tako_0522"
+  const githubUrl = "https://github.com/T4ko0522"
+  const twitterUrl = "https://twitter.com/Tako0522"
 
   return (
     <div className="space-y-6">
@@ -128,15 +129,15 @@ export default function SettingsForm() {
           <div className="flex flex-col space-y-4">
             <div className="flex items-center gap-2">
               <Github className="h-5 w-5 text-muted-foreground" />
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <ExternalLink href={githubUrl} className="text-primary hover:underline">
                 GitHub
-              </a>
+              </ExternalLink>
             </div>
             <div className="flex items-center gap-2">
               <Twitter className="h-5 w-5 text-muted-foreground" />
-              <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              <ExternalLink href={twitterUrl} className="text-primary hover:underline">
                 Twitter
-              </a>
+              </ExternalLink>
             </div>
           </div>
           <div className="pt-4 flex justify-center">
