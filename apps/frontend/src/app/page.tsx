@@ -6,6 +6,7 @@ import { useAuth } from "@/components/auth-provider"
 import SearchBox from "@/components/search-box"
 import NavBar from "@/components/nav-bar"
 import SocialLinks from "@/components/social-links"
+import { motion } from "framer-motion"
 
 export default function Home() {
   const { isAuthenticated, isPendingVerification, isFirstVisit } = useAuth()
@@ -36,6 +37,24 @@ export default function Home() {
     <>
       <NavBar />
       <main className="flex min-h-screen flex-col items-center justify-center p-4 relative">
+        <div className="text-center mb-8">
+          <motion.h1
+            className="text-4xl font-bold mb-1"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            VRCFT
+          </motion.h1>
+          <motion.p
+            className="text-muted-foreground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
+            VRChat Friend Tracker
+          </motion.p>
+        </div>
         <SearchBox />
 
         {/* ソーシャルリンクを追加 */}

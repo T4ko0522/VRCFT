@@ -18,23 +18,19 @@ export default function SearchBox() {
 
   return (
     <div className="w-full max-w-2xl">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-2">VRCFT</h1>
-        <p className="text-muted-foreground">Search for VR content</p>
-      </div>
       <form onSubmit={handleSearch} className="relative">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
           <Input
             type="text"
-            placeholder="Search..."
+            placeholder="検索..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="pl-10 py-6 text-lg"
           />
         </div>
         <Button type="submit" className="w-full mt-4">
-          Search
+          検索する
         </Button>
       </form>
     </div>
