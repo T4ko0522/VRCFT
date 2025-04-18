@@ -1,5 +1,26 @@
 const { app, BrowserWindow, shell } = require('electron');
 const path = require('path');
+const { spawn } = require('child_process');
+const http = require('http');
+
+let nextProcess;
+
+function waitForServer(url, timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const check = () => {
+      http.get(url, () => resolve())
+        .on('error', () => {
+          if (Date.now() - start > timeout) {
+            reject(new Error('Next.js server timeout'));
+          } else {
+            setTimeout(check, 500);
+          }
+        });
+    };
+    check();
+  });
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -13,7 +34,6 @@ function createWindow() {
 
   win.loadURL('http://localhost:3000');
 
-  // 外部リンクをデフォルトのブラウザで開く
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('http')) {
       shell.openExternal(url);
@@ -31,6 +51,24 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
-  createWindow();
+app.whenReady().then(async () => {
+  nextProcess = spawn('pnpm', ['--filter', 'frontend', 'start'], {
+    cwd: path.join(__dirname, '..', '..'),
+    shell: true,
+    stdio: 'inherit',
+  });
+
+  try {
+    await waitForServer('http://localhost:3000');
+    createWindow();
+  } catch (err) {
+    console.error('Next.js server did not start in time:', err);
+    app.quit();
+  }
+});
+
+app.on('will-quit', () => {
+  if (nextProcess) {
+    nextProcess.kill();
+  }
 });
