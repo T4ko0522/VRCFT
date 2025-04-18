@@ -96,8 +96,8 @@ export default function VerificationForm() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Verification Code</CardTitle>
-        <CardDescription>Enter the 6-digit code to complete login</CardDescription>
+        <CardTitle>二段階認証</CardTitle>
+        <CardDescription>メールに送信された認証コードを入力してください。</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -129,10 +129,10 @@ export default function VerificationForm() {
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button type="submit" className="w-full" disabled={isLoading || code.some((c) => !c)}>
-            {isLoading ? "Verifying..." : "Verify"}
+            {isLoading ? "認証中..." : "認証"}
           </Button>
           <Button type="button" variant="ghost" className="w-full" onClick={() => router.push("/login")}>
-            Back to Login
+            ログインページへ戻る
           </Button>
         </CardFooter>
       </form>
