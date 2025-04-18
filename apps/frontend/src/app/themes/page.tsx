@@ -31,14 +31,14 @@ export default function ThemesPage() {
         <div className="w-full max-w-4xl">
           <div className="flex items-center gap-2 mb-2">
             <Palette className="h-6 w-6" />
-            <h1 className="text-3xl font-bold">Themes</h1>
+            <h1 className="text-3xl font-bold">テーマ</h1>
           </div>
-          <p className="text-muted-foreground mb-6">Choose a theme that matches your style</p>
+          <p className="text-muted-foreground mb-6">あなたのスタイルに合ったテーマを選択してください。</p>
 
           <div className="space-y-6">
             <div>
-              <Label className="text-lg mb-2 block">Available Themes</Label>
-              <p className="text-muted-foreground mb-4">Click on a theme to apply it to the application</p>
+              <Label className="text-lg mb-2 block">利用可能なテーマ</Label>
+              <p className="text-muted-foreground mb-4">テーマをクリックしてアプリケーションに適用します。</p>
               <ThemeGrid />
             </div>
           </div>
