@@ -1,17 +1,35 @@
 {
   "name": "electron",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "VRCFT",
   "main": "main.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron ."
+    "start": "cross-env NODE_ENV=development electron .",
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.8.1",
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "electron": "^35.1.5"
+    "cross-env": "^7.0.3"
+  },
+  "build": {
+    "appId": "com.vrcft.electron",
+    "productName": "VRCFT",
+    "files": [
+      "main.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
   }
 }
