@@ -1,0 +1,9 @@
+{
+    "version": "1.0",
+    "protocol": {
+        "name": "VRCFT",
+        "description": "Shared protocol configuration for VRCFT.",
+        "commands": [],
+        "events": []
+    }
+}
