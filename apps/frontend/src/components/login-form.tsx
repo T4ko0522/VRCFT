@@ -31,7 +31,7 @@ export default function LoginForm() {
       if (success) {
         router.push("/verify")
       } else {
-        setError("Invalid username or password")
+        setError("Invalid username/email or password")
       }
     } catch (err) {
       setError("An error occurred during login")
@@ -43,8 +43,8 @@ export default function LoginForm() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Enter your credentials to access VRCFT</CardDescription>
+        <CardTitle>ログイン</CardTitle>
+        <CardDescription>VRChatのアカウントにログインするための資格情報を入力してください。</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
@@ -55,7 +55,7 @@ export default function LoginForm() {
             </div>
           )}
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">ユーザーネームまたはメールアドレス</Label>
             <Input
               id="username"
               type="text"
@@ -66,7 +66,7 @@ export default function LoginForm() {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">パスワード</Label>
             <Input
               id="password"
               type="password"
@@ -83,13 +83,13 @@ export default function LoginForm() {
               onCheckedChange={(checked) => setRememberMe(checked === true)}
             />
             <Label htmlFor="remember-me" className="text-sm font-normal">
-              Remember me
+              資格情報を保存する
             </Label>
           </div>
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "ログイン中..." : "ログイン"}
           </Button>
         </CardFooter>
       </form>
