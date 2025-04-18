@@ -44,8 +44,8 @@ export interface Friend {
 export const mockFriends: Friend[] = [
   {
     id: "1",
-    name: "Aiko_VR",
-    avatarUrl: "/blue-haired-anime-profile.png",
+    name: "TestUnknownUser 1",
+    avatarUrl: "/User.png",
     status: "online",
     location: "ホームワールド",
     avatarName: "Blue Neko",
@@ -66,7 +66,7 @@ export const mockFriends: Friend[] = [
     notes: "アバター作成のアドバイスをもらえる人",
     currentAvatar: {
       name: "Blue Neko V2",
-      creator: "Aiko_VR",
+      creator: "TestUnknownUser",
       isOwn: true,
     },
     joinDate: "2021-05-10",
@@ -79,10 +79,9 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "2",
-    name: "VRExplorer",
-    avatarUrl: "/fiery-gaze.png",
-    status: "in-game",
-    game: "VRChat",
+    name: "TestUnknownUser 2",
+    avatarUrl: "/User.png",
+    status: "online",
     location: "The Great Pug",
     avatarName: "Fire Samurai",
     isFavorite: true,
@@ -99,7 +98,7 @@ export const mockFriends: Friend[] = [
       },
     ],
     currentAvatar: {
-      name: "Fire Samurai",
+      name: "TestUnknownUser 2",
       creator: "AvatarForge",
       isOwn: false,
     },
@@ -114,8 +113,8 @@ export const mockFriends: Friend[] = [
   // 他のフレンドデータは省略...
   {
     id: "3",
-    name: "NightOwl",
-    avatarUrl: "/black-haired-anime-avatar.png",
+    name: "TestUnknownUser 3",
+    avatarUrl: "/User.png",
     status: "away",
     lastSeen: "10分前",
     location: "プライベートワールド",
@@ -126,7 +125,7 @@ export const mockFriends: Friend[] = [
     platform: "PC",
     bio: "夜行性です。深夜のVRChatで会いましょう。",
     currentAvatar: {
-      name: "Night Raven",
+      name: "TestUnknownUser 3",
       creator: "MidnightCreations",
       isOwn: false,
     },
@@ -140,11 +139,11 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "4",
-    name: "PixelDreamer",
-    avatarUrl: "/purple-haired-avatar.png",
+    name: "TestUnknownUser 4",
+    avatarUrl: "/User.png",
     status: "busy",
     location: "Sleep World",
-    avatarName: "Dream Walker",
+    avatarName: "The Dreamer",
     isFavorite: false,
     userRank: "Known User",
     friendNumber: 210,
@@ -159,7 +158,7 @@ export const mockFriends: Friend[] = [
       },
     ],
     currentAvatar: {
-      name: "Dream Walker",
+      name: "TestUnknownUser 4",
       creator: "DreamForge",
       isOwn: false,
     },
@@ -173,8 +172,8 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "5",
-    name: "VirtualNomad",
-    avatarUrl: "/emerald-gaze.png",
+    name: "TestUnknownUser 5",
+    avatarUrl: "/User.png",
     status: "offline",
     lastSeen: "2日前",
     avatarName: "Wanderer",
@@ -197,10 +196,9 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "6",
-    name: "CyberSamurai",
-    avatarUrl: "/white-haired-anime-profile.png",
-    status: "in-game",
-    game: "Beat Saber",
+    name: "TestUnknownUser 6",
+    avatarUrl: "/User.png",
+    status: "online",
     location: "Tournament Arena",
     avatarName: "Cyber Blade",
     isFavorite: true,
@@ -232,8 +230,8 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "7",
-    name: "QuantumDrifter",
-    avatarUrl: "/vibrant-orange-anime-profile.png",
+    name: "TestUnknownUser 7",
+    avatarUrl: "/User.png",
     status: "online",
     location: "Quantum Space",
     avatarName: "Quantum Fox",
@@ -257,8 +255,8 @@ export const mockFriends: Friend[] = [
   },
   {
     id: "8",
-    name: "NeonSpectre",
-    avatarUrl: "/pink-haired-anime-profile.png",
+    name: "TestUnknownUser 8",
+    avatarUrl: "/User.png",
     status: "offline",
     lastSeen: "1週間前",
     avatarName: "Neon Ghost",
