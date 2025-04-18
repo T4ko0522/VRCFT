@@ -17,7 +17,7 @@ export default function NavBar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-10 bg-background border-b">
       <div className="container flex items-center justify-between h-16 px-4 mx-auto">
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/front" className="text-xl font-bold">
           VRCFT
         </Link>
         <div className="flex items-center space-x-1">
