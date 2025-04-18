@@ -13,9 +13,21 @@ import { useTheme } from "@/hooks/use-theme"
 import { ThemeSelector } from "./theme-selector"
 import SocialLinks from "./social-links"
 import ExternalLink from "@/components/ui/external-link"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function SettingsForm() {
   const [notifications, setNotifications] = useState(true)
+  const [windowsNotifications, setWindowsNotifications] = useState(true)
+  const [steamVrNotifications, setSteamVrNotifications] = useState(false)
+  const [notificationFilters, setNotificationFilters] = useState({
+    friendLogin: true,
+    friendLogout: true,
+    statusChange: true,
+    worldChange: true,
+    avatarChange: false,
+    friendRequest: true,
+    message: true,
+  })
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const { logout } = useAuth()
   const router = useRouter()
@@ -56,18 +68,18 @@ export default function SettingsForm() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Palette className="h-5 w-5" />
-            Appearance
+            外観
           </CardTitle>
-          <CardDescription>Customize how VRCFT looks</CardDescription>
+          {/* <CardDescription>VRCFTの外観をカスタマイズする</CardDescription> */}
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
               <Label htmlFor="dark-mode" className="flex items-center gap-2">
                 {darkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-                Dark Mode
+                ダークモード
               </Label>
-              <p className="text-sm text-muted-foreground">Switch between light and dark theme</p>
+              {/* <p className="text-sm text-muted-foreground">Switch between light and dark theme</p> */}
             </div>
             <Switch id="dark-mode" checked={darkMode} onCheckedChange={handleDarkModeChange} />
           </div>
@@ -75,8 +87,8 @@ export default function SettingsForm() {
           <Separator />
 
           <div className="space-y-3">
-            <Label>Theme Style</Label>
-            <p className="text-sm text-muted-foreground">Choose a color theme for the application</p>
+            <Label>テーマスタイル</Label>
+            {/* <p className="text-sm text-muted-foreground">Choose a color theme for the application</p> */}
             <ThemeSelector />
           </div>
         </CardContent>
@@ -84,27 +96,134 @@ export default function SettingsForm() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Notifications</CardTitle>
-          <CardDescription>Manage your notification preferences</CardDescription>
+          <CardTitle>通知</CardTitle>
+          {/* <CardDescription>通知設定を管理する</CardDescription> */}
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label htmlFor="notifications">Enable Notifications</Label>
-              <p className="text-sm text-muted-foreground">Receive notifications from friends and events</p>
+              <Label htmlFor="notifications">通知を有効にする</Label>
+              <p className="text-sm text-muted-foreground">友達やイベントからの通知を受け取る</p>
             </div>
             <Switch id="notifications" checked={notifications} onCheckedChange={setNotifications} />
           </div>
+          {notifications && (
+            <>
+              {/* <Separator /> */}
+
+              <div className="space-y-4">
+                {/* <h3 className="text-sm font-medium">通知の送信先</h3> */}
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="windows-notifications">Windowsへの通知を送信する</Label>
+                  </div>
+                  <Switch
+                    id="windows-notifications"
+                    checked={windowsNotifications}
+                    onCheckedChange={setWindowsNotifications}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="steamvr-notifications">SteamVRへ通知を送信する</Label>
+                  </div>
+                  <Switch
+                    id="steamvr-notifications"
+                    checked={steamVrNotifications}
+                    onCheckedChange={setSteamVrNotifications}
+                  />
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">通知フィルター</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-login"
+                      checked={notificationFilters.friendLogin}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, friendLogin: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-login">お気に入りのフレンドのログイン</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-logout"
+                      checked={notificationFilters.friendLogout}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, friendLogout: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-logout">お気に入りのフレンドのログアウト</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-status"
+                      checked={notificationFilters.statusChange}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, statusChange: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-status">お気に入りのフレンドのステータス変更</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-world"
+                      checked={notificationFilters.worldChange}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, worldChange: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-world">お気に入りのフレンドのワールド移動</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-avatar"
+                      checked={notificationFilters.avatarChange}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, avatarChange: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-avatar">お気に入りのフレンドのアバター変更</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="filter-request"
+                      checked={notificationFilters.friendRequest}
+                      onCheckedChange={(checked) =>
+                        setNotificationFilters({ ...notificationFilters, friendRequest: !!checked })
+                      }
+                    />
+                    <Label htmlFor="filter-request">フレンドリクエストを受信</Label>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Account</CardTitle>
-          <CardDescription>Manage your account settings</CardDescription>
+          <CardTitle>アカウント</CardTitle>
+          <CardDescription>アカウント設定を管理する</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">Manage your account settings and preferences</p>
           <Separator />
           <div className="pt-2">
             <Button

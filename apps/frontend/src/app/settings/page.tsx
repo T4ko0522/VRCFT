@@ -27,7 +27,7 @@ export default function SettingsPage() {
       <NavBar />
       <main className="flex min-h-screen flex-col items-center pt-24 p-4">
         <div className="w-full max-w-2xl">
-          <h1 className="text-3xl font-bold mb-6">Settings</h1>
+          <h1 className="text-3xl font-bold mb-6">設定</h1>
           <SettingsForm />
         </div>
       </main>
