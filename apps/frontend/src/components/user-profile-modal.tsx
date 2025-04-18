@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import UserProfileDetail from "@/components/user-profile-detail"
 import type { Friend } from "@/lib/mock-data"
 
@@ -36,6 +36,9 @@ export default function UserProfileModal({ userId, friends, onClose }: UserProfi
   return (
     <Dialog open={!!userId} onOpenChange={handleClose}>
       <DialogContent className="max-w-4xl p-0 overflow-hidden max-h-[90vh] flex flex-col">
+        {/* ✅ スクリーンリーダー用のDialogTitle（非表示で可） */}
+        <DialogTitle className="sr-only">ユーザープロフィール</DialogTitle>
+
         <div className="overflow-y-auto">
           <UserProfileDetail user={user} onClose={handleClose} />
         </div>
