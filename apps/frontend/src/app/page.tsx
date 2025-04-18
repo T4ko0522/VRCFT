@@ -42,7 +42,7 @@ export default function Home() {
         <div className="absolute bottom-8 left-0 right-0 flex justify-center">
           <SocialLinks
             githubUrl="https://github.com/t4ko0522/vrcft"
-            twitterUrl="https://twitter.com/t4ko0522"
+            twitterUrl="https://twitter.com/tako_0522"
           />
         </div>
       </main>
