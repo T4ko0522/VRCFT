@@ -16,17 +16,16 @@
     "cross-env": "^7.0.3"
   },
   "build": {
-    "appId": "com.vrcft.electron",
-    "productName": "VRCFT",
+    "asar": false,
     "files": [
-      "main.js"
+      "main.js",
+      "node.exe",
+      { "from": "../frontend", "to": "frontend" },
+      { "from": "../frontend/node_modules", "to": "frontend/node_modules" }
     ],
-    "directories": {
-      "buildResources": "assets"
-    },
-    "win": {
-      "icon": "assets/icon.ico"
-    }
+    "extraResources": ["node.exe"],
+    "directories": { "buildResources": "assets" },
+    "win": { "icon": "assets/icon.ico" }
   },
   "devDependencies": {
     "electron": "^35.1.5",
