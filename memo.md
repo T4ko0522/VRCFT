@@ -18,3 +18,6 @@ Windows通知の実装
 
 Memo GET FRIEND INFO
 https://github.com/vrchatapi/vrchatapi-python/blob/main/docs/FriendsApi.md#get_friends
+
+React toastify - Next.js
+https://zenn.dev/koyabluetech/articles/78f6a4caf096e2
