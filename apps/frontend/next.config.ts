@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
     domains: ["localhost"],
     unoptimized: true,
   },
-}
+  webpack(config) {
+    config.output.hashFunction = "sha256";
+    return config;
+  },
+};
 
 export default nextConfig;
