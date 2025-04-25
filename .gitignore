@@ -12,6 +12,7 @@ out/
 # production
 build/
 dist/
+release/
 
 # debug
 npm-debug.log*
