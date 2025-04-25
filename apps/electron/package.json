@@ -18,15 +18,14 @@
   },
   "build": {
     "electronVersion": "35.1.5",
-    "forceCodeSigning": false,
     "asar": false,
     "files": [
       "main.js",
-      "node.exe",
-      { "from": "../frontend/server.js", "to": "frontend/server.js" },
-      { "from": "../frontend/.next", "to": "frontend/.next" },
-      { "from": "../frontend", "to": "frontend" },
-      { "from": "../frontend/node_modules", "to": "frontend/node_modules" }
+      {
+        "from": "../../release/frontend",
+        "to": "frontend",
+        "filter": ["**/*"]
+      }
     ],
     "extraResources": [
       "node.exe"
