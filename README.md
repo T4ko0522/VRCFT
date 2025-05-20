@@ -1,4 +1,6 @@
-# VRCFT
+# ~~VRCFT~~  
+## モチベが消えたので、しばらくこのプロジェクトはおやすみ！
+多分やらない。。。
 **VRCFT(VRChatFriendTracker)** - VRChatのAPIを叩き、設定したフレンドのログを監視、通知するアプリ。Discordの特定のチャンネルへWebhookでの通知、Windowsへの通知、SteamVRのオーバーレイを予定しています。
 
 ## IssueやPull Request
